@@ -15,8 +15,6 @@
       </tbody>
     </table>
   </div>
-
-
 </template>
 <script>
 export default {
@@ -38,7 +36,7 @@ export default {
   },
   methods: {
     async getList () {
-      this.personList = await this.$api('http://localhost:8080/sample/test', 'get')
+      this.personList = await this.$api('/sample/test', 'get')
       console.log(this.personList)
     }
   }

@@ -1,5 +1,4 @@
 module.exports = {
-  lintOnSave: false,
   devServer: {
     proxy: {
       '^/api': {
@@ -7,5 +6,6 @@ module.exports = {
         changeOrigin: true
       }
     }
-  }
+  },
+  lintOnSave: false
 }

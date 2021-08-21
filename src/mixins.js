@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-// eslint-disable-next-line no-unused-vars
 export default {
   methods: {
     async $api (url, method, data) {
@@ -10,8 +9,19 @@ export default {
         url,
         data
       }).catch(e => {
-        console.log(e)
+        console.log('api error ' + e)
       })).data
+    },
+
+    async $save (url, data) {
+      return await axios.post(
+        'http://localhost:8080' + url,
+        JSON.stringify(data),
+        { headers: { 'Content-Type': 'application/json' } }
+      ).then(response => {
+        return response.data
+        console.log(response.data)
+      })
     }
   }
 }

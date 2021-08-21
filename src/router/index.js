@@ -1,16 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import GuestList from '@/views/GuestList'
+import GuestbookList from '@/views/GuestbookList'
+import GuestbookCreate from '@/views/GuestbookCreate'
+import GuestbookRead from '@/views/GuestbookRead'
 
 const routes = [
   {
     path: '/',
-    name: 'GuestList',
-    component: GuestList
+    name: 'GuestbookList',
+    component: GuestbookList
   },
   {
     path: '/list',
     name: 'GuestList',
-    component: GuestList
+    component: GuestbookList
+  },
+  {
+    path: '/create',
+    name: 'GuestbookCreate',
+    component: GuestbookCreate
+  },
+  {
+    path: '/read',
+    name: 'GuestbookRead',
+    component: GuestbookRead
   }
 ]
 

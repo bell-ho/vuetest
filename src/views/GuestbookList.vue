@@ -14,7 +14,11 @@
           </thead>
           <tbody>
           <tr :key="i" v-for="(person , i) in guestList.dtoList">
-            <td>{{ i + 1 }}</td>
+            <th scope="row">
+              <a href="#" @click="goToDetail(person.guestNum ,this.guestList.page)">
+                {{person.guestNum}}
+              </a>
+            </th>
             <td>{{ person.title }}</td>
             <td>{{ person.writer }}</td>
             <td>{{ person.modDate }}</td>
@@ -24,7 +28,7 @@
 
         <ul class="pagination h-100 justify-content-center align-items-center">
           <li class="page-item" v-if="this.guestList.prev">
-            <a href="#" class="page-link" tabindex="-1" @click="getList(this.params = (this.guestList.start - 1) )">
+            <a href="#" class="page-link" tabindex="-1" @click="getList(this.params = (this.guestList.start -1))">
               이전
             </a>
           </li>
@@ -36,7 +40,7 @@
           </li>
 
           <li class="page-item" v-if="this.guestList.next">
-            <a href="#" class="page-link" tabindex="-1" @click="getList(this.params = (this.guestList.end +1) )">
+            <a href="#" class="page-link" tabindex="-1" @click="getList(this.params = (this.guestList.end +1))">
               다음
             </a>
           </li>
@@ -61,7 +65,7 @@ export default {
         size: 10,
         totalPage: 100,
       },
-      params : 1
+      params: 1
     }
   },
   computed: {},
@@ -72,9 +76,11 @@ export default {
     this.getList()
   },
   methods: {
-    async getList (params) {
-      this.guestList = await this.$api('/guestbook/list?page='+this.params, 'get')
-      console.log(this.guestList)
+    async getList () {
+      this.guestList = await this.$api('/guestbook/list?page=' + this.params, 'get',{})
+    },
+    goToDetail (guestNum ,page ) {
+      this.$router.push({path:'/read' , params:{id : encodeURIComponent(guestNum) , page : page}})
     }
   }
 }

@@ -13,7 +13,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr :key="i" v-for="(person , i) in guestList">
+          <tr :key="i" v-for="(person , i) in guestList.dtoList">
             <td>{{ i + 1 }}</td>
             <td>{{ person.title }}</td>
             <td>{{ person.writer }}</td>
@@ -22,15 +22,25 @@
           </tbody>
         </table>
 
-<!--          <ul class="pagination h-100 justify-content-center align-items-center">-->
-<!--            <li class="page-item" v-if="">-->
-<!--              <a href="#" class="page-link" tabindex="-1">이전</a>-->
-<!--            </li>-->
+        <ul class="pagination h-100 justify-content-center align-items-center">
+          <li class="page-item" v-if="this.guestList.prev">
+            <a href="#" class="page-link" tabindex="-1" @click="getList(this.params = (this.guestList.start - 1) )">
+              이전
+            </a>
+          </li>
 
-<!--            <li class="page-item" v-if="">-->
-<!--              <a href="#" class="page-link" tabindex="-1">다음</a>-->
-<!--            </li>-->
-<!--          </ul>-->
+          <li :class="['page-item' + this.guestList.page == page ? 'active' : ''  ]" v-for="(page , i) in this.guestList.pageList">
+            <a class="page-link" href="#" @click="getList(this.params = page)">
+              {{ page }}
+            </a>
+          </li>
+
+          <li class="page-item" v-if="this.guestList.next">
+            <a href="#" class="page-link" tabindex="-1" @click="getList(this.params = (this.guestList.end +1) )">
+              다음
+            </a>
+          </li>
+        </ul>
 
       </div>
     </div>
@@ -40,8 +50,18 @@
 export default {
   data () {
     return {
-      guestList: [],
-      prev: true
+      guestList: {
+        dtoList: [],
+        start: 1,
+        end: 10,
+        prev: true,
+        next: false,
+        page: 1,
+        pageList: [],
+        size: 10,
+        totalPage: 100,
+      },
+      params : 1
     }
   },
   computed: {},
@@ -52,26 +72,10 @@ export default {
     this.getList()
   },
   methods: {
-    async getList () {
-      this.guestList = await this.$api('/guestbook/list', 'get')
-
-      this.prev = this.guestList[0].prev
-
-      console.log(this.prev)
+    async getList (params) {
+      this.guestList = await this.$api('/guestbook/list?page='+this.params, 'get')
+      console.log(this.guestList)
     }
   }
 }
 </script>
-<style scoped>
-table {
-  /*font-family: arial, sans-serif;*/
-  /*border-collapse: collapse;*/
-  /*width: 100%;*/
-}
-
-td, th {
-  /*border: 1px solid #dddddd;*/
-  /*text-align: left;*/
-  /*padding: 8px;*/
-}
-</style>

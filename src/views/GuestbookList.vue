@@ -80,7 +80,7 @@ export default {
       this.guestList = await this.$api('/guestbook/list?page=' + this.params, 'get',{})
     },
     goToDetail (guestNum ,page ) {
-      this.$router.push({path:'/read' , params:{id : encodeURIComponent(guestNum) , page : page}})
+      this.$router.push({name:'GuestbookRead' , params:{guestNum : encodeURIComponent(guestNum) , page : page}})
     }
   }
 }

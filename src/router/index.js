@@ -20,8 +20,12 @@ const routes = [
     component: GuestbookCreate
   },
   {
-    path: '/read',
+    path: '/detail/:guestNum/:page',
     name: 'GuestbookRead',
+    props: (route) => ({
+      guestNum: route.params.guestNum,
+      page:route.params.page
+    }),
     component: GuestbookRead
   }
 ]

@@ -13,7 +13,7 @@ export default {
       })).data
     },
 
-    async $save (url,method, data) {
+    async $save (url, data) {
       return await axios.post(
         'http://localhost:8080' + url,
         JSON.stringify(data),

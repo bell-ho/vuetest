@@ -72,7 +72,6 @@ export default {
       this.$router.push({name:'GuestbookList' , params:{page: this.page}})
     },
     goToUpdate () {
-      console.log(this.guestNum)
       this.$router.push({name:'GuestbookUpdate' , params:{guestNum : encodeURIComponent(this.guestNum) , page : this.page}})
     },
     async goToDelete () {

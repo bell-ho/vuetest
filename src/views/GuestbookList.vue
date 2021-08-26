@@ -34,7 +34,7 @@
           </li>
 
           <li :class="['page-item' + this.guestList.page == page ? 'active' : ''  ]" v-for="(page , i) in this.guestList.pageList">
-            <a class="page-link" href="#" @click="getList(this.params = page)">
+            <a class="page-link" href="#" @click="getList(page)">
               {{ page }}
             </a>
           </li>
@@ -77,11 +77,12 @@ export default {
   mounted () {
   },
   created () {
-    this.getList (this.page)
+    this.getList(this.page)
   },
   methods: {
     async getList (page) {
-      this.guestList = await this.$api('/guestbook/list?page=' + page, 'get',{})
+      this.guestList = await this.$api('/guestbook/list?page=' + page, 'get', {})
+      await this.$router.push({ name: 'GuestbookList', params: { page: page }})
     },
     goToDetail (guestNum ,page ) {
       this.$router.push({name:'GuestbookRead' , params:{guestNum : encodeURIComponent(guestNum) , page : page}})

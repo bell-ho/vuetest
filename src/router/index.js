@@ -6,7 +6,7 @@ import GuestbookUpdate from '@/views/GuestbookUpdate'
 
 const routes = [
   {
-    path: '/',
+    path: '/:page',
     name: 'GuestbookList',
     component: GuestbookList,
     props: (route) => ({

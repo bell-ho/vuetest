@@ -38,8 +38,8 @@ export default {
   name: 'GuestbookRead',
   props: {
     guestNum: {
-      type: String,
-      default: ''
+      type: Number,
+      default: 1
     },
     page: {
       type: Number,

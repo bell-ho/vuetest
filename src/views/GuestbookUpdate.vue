@@ -55,8 +55,8 @@
 export default {
   props: {
     guestNum: {
-      type: Number,
-      default: 1
+      type: String,
+      default: ''
     },
     page: {
       type: Number,
@@ -67,13 +67,17 @@ export default {
   components: {},
   data () {
     return {
-      guestbook: {}
+      guestbook: {
+      },
+      test: '',
+      test2: ''
     }
   },
   setup () {
   },
   created () {
     this.getGuestbook()
+    console.log(this.guestNum)
   },
   mounted () {
   },
@@ -81,7 +85,7 @@ export default {
   },
   methods: {
     async getGuestbook () {
-      this.guestbook = await this.$api('/guestbook/modify?guestNum=' + encodeURIComponent(this.guestNum), 'get', {})
+      this.guestbook = await this.$api('/guestbook/modify?guestNum=' + this.guestNum, 'get', {})
     },
     cancel () {
       this.$router.push({name:'GuestbookRead' , params:{guestNum : encodeURIComponent(this.guestNum) , page : this.page}})
@@ -100,8 +104,10 @@ export default {
         if (result.isConfirmed) {
           await this.$save("/guestbook/modify",  this.guestbook);
           this.$swal.fire('수정!', '', 'success')
-          this.$router.push({name: 'GuestbookRead' ,  params:{guestNum : encodeURIComponent(this.guestbook.guestNum) , page: this.page}});
+          this.$router.push({name: 'GuestbookRead' ,  params:{guestNum : encodeURIComponent(this.guestNum) , page: this.page}});
         }
+      }).catch(err=>{
+        console.log(err)
       })
     },
   }

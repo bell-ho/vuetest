@@ -28,7 +28,7 @@ const routes = [
     component: GuestbookRead
   },
   {
-    path: '/update',
+    path: '/update:/:guestNum/:page',
     name: 'GuestbookUpdate',
     component: GuestbookUpdate,
     props: (route) => ({

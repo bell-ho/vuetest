@@ -68,7 +68,8 @@ export default {
   data () {
     return {
       guestbook: {
-      }
+      },
+      test: ''
     }
   },
   setup () {

@@ -68,10 +68,10 @@ export default {
         if (result.isConfirmed) {
           await this.$save("/guestbook/register",  this.guestbook);
           this.$swal.fire('등록!', '', 'success')
-          this.$router.push({path: '/list'});
+          this.$router.push({path: '/'});
         }
       })
-    },
+    }
   }
 }
 </script>

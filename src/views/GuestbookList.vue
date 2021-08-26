@@ -45,13 +45,18 @@
             </a>
           </li>
         </ul>
-
       </div>
     </div>
   </main>
 </template>
 <script>
 export default {
+  props: {
+    page: {
+      type: Number,
+      default: 1
+    }
+  },
   data () {
     return {
       guestList: {
@@ -65,22 +70,21 @@ export default {
         size: 10,
         totalPage: 100,
       },
-      params: 1
+       params: 1
     }
   },
   computed: {},
   mounted () {
-
   },
   created () {
-    this.getList()
+    this.getList (this.page)
   },
   methods: {
-    async getList () {
-      this.guestList = await this.$api('/guestbook/list?page=' + this.params, 'get',{})
+    async getList (page) {
+      this.guestList = await this.$api('/guestbook/list?page=' + page, 'get',{})
     },
     goToDetail (guestNum ,page ) {
-      this.$router.push({path:'/read' , params:{id : encodeURIComponent(guestNum) , page : page}})
+      this.$router.push({name:'GuestbookRead' , params:{guestNum : encodeURIComponent(guestNum) , page : page}})
     }
   }
 }

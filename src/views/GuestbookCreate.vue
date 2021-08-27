@@ -24,14 +24,13 @@
           </div>
         </div>
       </div>
+
       <div class="mb-3 row">
-        <div class="col-6 d-grid p-1">
-          <button type="button" class="btn btn-lg btn-dark">취소</button>
-        </div>
-        <div class="col-6 d-grid p-1">
-          <button type="button" class="btn btn-lg btn-danger" @click="guestbookInsert">등록</button>
+        <div class="col-6 d-grid p-1 ">
+          <button type="button" class="btn btn-lg btn-dark" @click="guestbookInsert">등록</button>
         </div>
       </div>
+
     </div>
   </main>
 </template>
@@ -41,7 +40,11 @@ export default {
   components: {},
   data () {
     return {
-      guestbook: {},
+      guestbook: {
+        title: '',
+        content: '',
+        writer: ''
+      },
       guestNum : 1
     }
   },
@@ -68,7 +71,7 @@ export default {
         if (result.isConfirmed) {
           await this.$save("/guestbook/register",  this.guestbook);
           this.$swal.fire('등록!', '', 'success')
-          this.$router.push({path: '/'});
+          this.$router.push({name: 'GuestbookList' , params : {page : 1}});
         }
       })
     }
